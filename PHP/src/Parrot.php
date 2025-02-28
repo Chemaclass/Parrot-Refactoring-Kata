@@ -28,11 +28,26 @@ class Parrot
     public static function create(int $type, int $numberOfCoconuts, float $voltage, bool $isNailed): self
     {
         return match ($type) {
-            ParrotTypeEnum::EUROPEAN => new Parrot(ParrotTypeEnum::EUROPEAN, $numberOfCoconuts, $voltage, $isNailed),
-            ParrotTypeEnum::AFRICAN => new Parrot(ParrotTypeEnum::AFRICAN, $numberOfCoconuts, $voltage, $isNailed),
-            ParrotTypeEnum::NORWEGIAN_BLUE => new Parrot(ParrotTypeEnum::NORWEGIAN_BLUE, $numberOfCoconuts, $voltage, $isNailed),
+            ParrotTypeEnum::EUROPEAN => self::createEuropeanParrot(),
+            ParrotTypeEnum::AFRICAN => self::createAfricanParrot($numberOfCoconuts),
+            ParrotTypeEnum::NORWEGIAN_BLUE => self::createNorwegianBlueParrot($voltage, $isNailed),
             default => throw new Exception('Should be unreachable'),
         };
+    }
+
+    public static function createEuropeanParrot(): self
+    {
+        return new self(ParrotTypeEnum::EUROPEAN, -1, -1, false);
+    }
+
+    public static function createAfricanParrot(int $numberOfCoconuts): self
+    {
+        return new self(ParrotTypeEnum::AFRICAN, $numberOfCoconuts, -1, false);
+    }
+
+    public static function createNorwegianBlueParrot(float $voltage, bool $isNailed): self
+    {
+        return new self(ParrotTypeEnum::NORWEGIAN_BLUE, -1, $voltage, $isNailed);
     }
 
     /**
