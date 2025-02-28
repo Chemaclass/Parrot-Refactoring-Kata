@@ -7,7 +7,11 @@ final class EuropeanParrot extends Parrot
 {
     public function __construct()
     {
-        parent::__construct(ParrotTypeEnum::EUROPEAN, -1, -1, false);
+    }
+
+    public function getCry(): string
+    {
+        return 'Sqoork!';
     }
 
     public function getSpeed(): float
